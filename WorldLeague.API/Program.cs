@@ -1,6 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Core;
+using WorldLeague.API.Extensions;
 using WorldLeagure.Core.Repositories;
 using WorldLeagure.Core.Services;
 using WorldLeagure.Core.UnitOfWorks;
@@ -54,6 +57,16 @@ builder.Services.AddDbContext<WorldLeagueDbContext>(options =>
     });
 });
 
+//Add Serilog Configuration
+Logger logConfiguration = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("WorldLeague"),
+        "Logs",
+        autoCreateSqlTable: true)
+    .MinimumLevel.Information()
+    .CreateLogger();
+builder.Host.UseSerilog(logConfiguration);
 
 var app = builder.Build();
 
@@ -72,6 +85,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpLogging();
+
+//Add Global Error Handling Configuration
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
 app.UseHttpsRedirection();
 
