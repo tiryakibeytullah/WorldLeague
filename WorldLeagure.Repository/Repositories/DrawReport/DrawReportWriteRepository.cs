@@ -7,5 +7,10 @@ namespace WorldLeagure.Repository.Repositories.DrawReport
         public DrawReportWriteRepository(WorldLeagueDbContext movieDbContext) : base(movieDbContext)
         {
         }
+
+        public void UpdateRange(List<Core.Entities.DrawReport> drawReports)
+        {
+            _context.UpdateRange(drawReports);
+        }
     }
 }

@@ -16,6 +16,23 @@ namespace WorldLeagure.Service.Services
 
         }
 
+        public async Task<List<DrawReportViewModel>> GetListByUserAsync(string firstName, string surname)
+        {
+            List<DrawReport> drawReports = await (_unitOfWork.DrawReportReadRepository.GetWithNavigationProperties())
+                .Where(d => d.Firstname.ToLower() == firstName.ToLower() && d.Surname.ToLower() == d.Surname.ToLower())
+                .ToListAsync();
+
+            IEnumerable<IGrouping<Group, DrawReport>> grouping = drawReports.GroupBy(d => d.Group);
+            List<DrawReportViewModel> drawReportViewModels = grouping.Select(d => new DrawReportViewModel
+            {
+                Group = d.Key,
+                Teams = drawReports.Where(y => y.GroupId == d.Key.Id).Select(y => y.Team).ToList()
+            }).ToList();
+
+            return drawReportViewModels;
+        }
+
+
         public async Task<List<DrawReportViewModel>> DrawLotsAsync(int groupCount, string firstName, string surname)
         {
             List<Group> groups = await (_unitOfWork.GroupReadRepository.GetAll()).ToListAsync();
@@ -45,6 +62,21 @@ namespace WorldLeagure.Service.Services
             await _unitOfWork.CommitAsync();
 
             return drawLosts;
+        }
+
+        public async Task RemoveRangeAsync(string firstName, string surname)
+        {
+            List<DrawReport> drawReports = await (_unitOfWork.DrawReportReadRepository.GetAll())
+                 .Where(d => d.Firstname.ToLower() == firstName.ToLower() && d.Surname.ToLower() == d.Surname.ToLower()).ToListAsync();
+
+            foreach (var drawReport in drawReports)
+            {
+                drawReport.IsDeleted = true;
+                drawReport.UpdatedDate = DateTime.Now;
+            }
+
+            _unitOfWork.DrawReportWriteRepository.UpdateRange(drawReports);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

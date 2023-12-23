@@ -4,6 +4,7 @@ using WorldLeague.API.Features.Commands.Countries.CreateCountry;
 using WorldLeague.API.Features.Commands.Countries.DeleteCountry;
 using WorldLeague.API.Features.Commands.Countries.UpdateCountry;
 using WorldLeague.API.Features.Queries.Countries.GetAllCountry;
+using WorldLeague.API.Features.Queries.Countries.GetAllCountryWithNavigationProperties;
 using WorldLeague.API.Features.Queries.Countries.GetByIdCountry;
 
 namespace WorldLeague.API.Controllers
@@ -30,6 +31,13 @@ namespace WorldLeague.API.Controllers
         public async Task<IActionResult> GetByIdAsync([FromQuery] GetByIdCountryQueryRequest request)
         {
             GetByIdCountryQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("with-navigation-properties")]
+        public async Task<IActionResult> GetWithNavigationPropertiesAsync([FromQuery] GetAllCountryWithNavigationPropertiesQueryRequest request)
+        {
+            GetAllCountryWithNavigationPropertiesQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 

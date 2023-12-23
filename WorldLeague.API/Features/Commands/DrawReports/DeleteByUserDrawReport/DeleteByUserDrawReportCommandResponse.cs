@@ -1,6 +1,6 @@
 ﻿namespace WorldLeague.API.Features.Commands.DrawReports.DeleteDrawReport
 {
-    public class DeleteDrawReportCommandResponse
+    public class DeleteByUserDrawReportCommandResponse
     {
     }
 }

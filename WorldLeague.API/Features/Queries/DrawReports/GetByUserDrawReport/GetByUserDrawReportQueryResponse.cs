@@ -1,8 +1,8 @@
 ﻿using WorldLeague.API.ViewModels;
 
-namespace WorldLeague.API.Features.Commands.DrawReports.CreateDrawReport
+namespace WorldLeague.API.Features.Queries.DrawReports.GetByIdDrawReport
 {
-    public class CreateDrawReportCommandResponse
+    public class GetByUserDrawReportQueryResponse
     {
         public List<DrawReportResponseViewModel> DrawReportResponses { get; set; }
     }

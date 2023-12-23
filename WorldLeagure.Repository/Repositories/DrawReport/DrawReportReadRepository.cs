@@ -1,4 +1,5 @@
-﻿using WorldLeagure.Core.Repositories.DrawReport;
+﻿using Microsoft.EntityFrameworkCore;
+using WorldLeagure.Core.Repositories.DrawReport;
 
 namespace WorldLeagure.Repository.Repositories.DrawReport
 {
@@ -9,6 +10,14 @@ namespace WorldLeagure.Repository.Repositories.DrawReport
         public DrawReportReadRepository(WorldLeagueDbContext worldLeagueDbContext) : base(worldLeagueDbContext)
         {
 
+        }
+
+        public IQueryable<Core.Entities.DrawReport> GetWithNavigationProperties()
+        {
+            return _worldLeagueDbContext.DrawReports
+                .Include(d => d.Group)
+                .Include(d => d.Team)
+                .AsQueryable();
         }
     }
 }

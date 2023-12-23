@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WorldLeague.API.Features.Commands.DrawReports.CreateDrawReport;
+using WorldLeague.API.Features.Queries.DrawReports.GetByIdDrawReport;
 
 namespace WorldLeague.API.Controllers
 {
@@ -13,6 +14,14 @@ namespace WorldLeague.API.Controllers
         public DrawReportController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Route("by-user")]
+        public async Task<IActionResult> GetByUserAsync([FromQuery] GetByUserDrawReportQueryRequest request)
+        {
+            GetByUserDrawReportQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpPost]

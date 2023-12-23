@@ -18,7 +18,7 @@ namespace WorldLeagure.Repository.Repositories
 
         public IQueryable<T> GetAll(bool tracking = true)
         {
-            var query = Table.AsQueryable();
+            var query = Table.AsQueryable().Where(q => q.IsDeleted == false);
             if (!tracking)
                 query = query.AsNoTracking();
             return query;
@@ -26,7 +26,7 @@ namespace WorldLeagure.Repository.Repositories
 
         public async Task<T> GetByIdAsync(Guid id, bool tracking = true)
         {
-            var query = Table.AsQueryable();
+            var query = Table.AsQueryable().Where(q => q.IsDeleted == false);
             if (!tracking)
                 query = query.AsNoTracking();
             return await query.FirstOrDefaultAsync(q => q.Id == id);
@@ -34,7 +34,7 @@ namespace WorldLeagure.Repository.Repositories
 
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> expression, bool tracking = true)
         {
-            var query = Table.AsQueryable();
+            var query = Table.AsQueryable().Where(q => q.IsDeleted == false);
             if (!tracking)
                 query = query.AsNoTracking();
             return await query.SingleOrDefaultAsync(expression);
@@ -42,7 +42,7 @@ namespace WorldLeagure.Repository.Repositories
 
         public IQueryable<T> GetWhere(Expression<Func<T, bool>> expression, bool tracking = true)
         {
-            var query = Table.Where(expression);
+            var query = Table.Where(expression).Where(q => q.IsDeleted == false);
             if (!tracking)
                 query = query.AsNoTracking();
             return query;

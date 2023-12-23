@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using WorldLeague.API.ViewModels;
 using WorldLeagure.Core.Services;
 using WorldLeagure.Core.ViewModels;
 
@@ -20,7 +21,7 @@ namespace WorldLeague.API.Features.Commands.DrawReports.CreateDrawReport
         {
             List<DrawReportViewModel> drawReportViewModels = await _drawReportService.DrawLotsAsync(request.GroupCount, request.Firstname, request.Surname);
             List<DrawReportViewModel> response = drawReportViewModels.Where(t => t.Teams.Any()).ToList();
-            return new CreateDrawReportCommandResponse() { DrawReportResponses = _mapper.Map<List<DrawReportViewModel>, List<DrawReportResponse>>(response) };
+            return new CreateDrawReportCommandResponse() { DrawReportResponses = _mapper.Map<List<DrawReportViewModel>, List<DrawReportResponseViewModel>>(response) };
         }
     }
 }

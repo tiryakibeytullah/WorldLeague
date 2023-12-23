@@ -17,5 +17,10 @@ namespace WorldLeagure.Service.Services
         {
             return await _unitOfWork.CountryReadRepository.CheckCountryAsync(id);
         }
+
+        public async Task<List<Country>> GetWithNavigationPropertiesAsync()
+        {
+            return await _unitOfWork.CountryReadRepository.GetWithNavigationPropertiesAsync();
+        }
     }
 }

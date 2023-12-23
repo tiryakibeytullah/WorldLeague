@@ -7,7 +7,7 @@ namespace WorldLeagure.Repository.Repositories
 {
     public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
     {
-        private readonly WorldLeagueDbContext _context;
+        protected readonly WorldLeagueDbContext _context;
 
         public WriteRepository(WorldLeagueDbContext movieDbContext)
         {
