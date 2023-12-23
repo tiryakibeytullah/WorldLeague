@@ -14,7 +14,7 @@ namespace WorldLeague.API.Validators.DrawReports
                .NotNull()
                     .WithMessage("Lütfen Adınızı giriniz.")
                .MaximumLength(DrawReportConst.FirstnameMaxLength)
-                    .WithMessage("Adınız 1 ila 50 karakter arasında uzunluğa sahip olmalıdır.");
+                    .WithMessage($"Adınız 1 ila {DrawReportConst.FirstnameMaxLength} karakter arasında uzunluğa sahip olmalıdır.");
 
             RuleFor(c => c.Surname)
               .NotEmpty()
@@ -22,7 +22,7 @@ namespace WorldLeague.API.Validators.DrawReports
               .NotNull()
                    .WithMessage("Lütfen Soyadınızı giriniz.")
               .MaximumLength(DrawReportConst.SurnameMaxLength)
-                   .WithMessage("Soyadınız 1 ila 50 karakter arasında uzunluğa sahip olmalıdır.");
+                   .WithMessage($"Soyadınız 1 ila {DrawReportConst.SurnameMaxLength} karakter arasında uzunluğa sahip olmalıdır.");
 
             RuleFor(c => c.GroupCount)
              .NotEmpty()
