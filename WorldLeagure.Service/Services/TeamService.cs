@@ -11,5 +11,10 @@ namespace WorldLeagure.Service.Services
         public TeamService(IWriteRepository<Team> writeRepository, IReadRepository<Team> readRepository, IUnitOfWork unitOfWork) : base(writeRepository, readRepository, unitOfWork)
         {
         }
+
+        public async Task<bool> CheckTeamAsync(Guid id)
+        {
+            return await _unitOfWork.TeamReadRepository.CheckTeamAsync(id);
+        }
     }
 }

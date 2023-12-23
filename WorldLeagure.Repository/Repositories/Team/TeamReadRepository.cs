@@ -1,4 +1,5 @@
-﻿using WorldLeagure.Core.Repositories.Team;
+﻿using Microsoft.EntityFrameworkCore;
+using WorldLeagure.Core.Repositories.Team;
 
 namespace WorldLeagure.Repository.Repositories.Team
 {
@@ -8,6 +9,16 @@ namespace WorldLeagure.Repository.Repositories.Team
 
         public TeamReadRepository(WorldLeagueDbContext worldLeagueDbContext) : base(worldLeagueDbContext)
         {
+        }
+
+        public async Task<bool> CheckTeamAsync(Guid id)
+        {
+            return await _worldLeagueDbContext.Teams.AnyAsync(t => t.Id == id && t.IsDeleted == false);
+        }
+
+        public async Task<List<Core.Entities.Team>> GetWithNavigationPropertiesAsync()
+        {
+            return await _worldLeagueDbContext.Teams.Include(t => t.Country).ToListAsync();
         }
     }
 }

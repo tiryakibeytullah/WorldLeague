@@ -11,5 +11,10 @@ namespace WorldLeagure.Service.Services
         public GroupService(IWriteRepository<Group> writeRepository, IReadRepository<Group> readRepository, IUnitOfWork unitOfWork) : base(writeRepository, readRepository, unitOfWork)
         {
         }
+
+        public async Task<bool> CheckGroupAsync(Guid id)
+        {
+            return await _unitOfWork.GroupReadRepository.CheckGroupAsync(id);
+        }
     }
 }

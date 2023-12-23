@@ -12,5 +12,10 @@ namespace WorldLeagure.Service.Services
         {
 
         }
+
+        public async Task<bool> CheckCountryAsync(Guid id)
+        {
+            return await _unitOfWork.CountryReadRepository.CheckCountryAsync(id);
+        }
     }
 }

@@ -5,6 +5,6 @@ namespace WorldLeagure.Core.Services
 {
     public interface ICountryService : IBaseService<Country>
     {
-
+        Task<bool> CheckCountryAsync(Guid id);
     }
 }

@@ -5,6 +5,6 @@ namespace WorldLeagure.Core.Services
 {
     public interface ITeamService : IBaseService<Team>
     {
-
+        Task<bool> CheckTeamAsync(Guid id);
     }
 }
