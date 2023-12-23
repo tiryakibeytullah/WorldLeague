@@ -80,11 +80,11 @@ builder.Host.UseSerilog(logConfiguration);
 var app = builder.Build();
 
 //Automatic operation of migration files in the database structure 
-//using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
-//{
-//    var context = serviceScope.ServiceProvider.GetRequiredService<WorldLeagueDbContext>();
-//    context.Database.Migrate();
-//}
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<WorldLeagueDbContext>();
+    context.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
