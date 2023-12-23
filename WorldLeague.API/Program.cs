@@ -2,10 +2,13 @@ using MediatR;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using WorldLeagure.Core.Repositories;
+using WorldLeagure.Core.Services;
 using WorldLeagure.Core.UnitOfWorks;
 using WorldLeagure.Repository;
 using WorldLeagure.Repository.Repositories;
 using WorldLeagure.Repository.UnitOfWorks;
+using WorldLeagure.Service.Filters;
+using WorldLeagure.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+    .ConfigureApiBehaviorOptions(configuration => configuration.SuppressModelStateInvalidFilter = true);
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -32,7 +38,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
 builder.Services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
 //Add Services to Custom Services
-
+builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
+builder.Services.AddScoped(typeof(IDrawReportService), typeof(DrawReportService));
+builder.Services.AddScoped(typeof(IGroupService), typeof(GroupService));
+builder.Services.AddScoped(typeof(ITeamService), typeof(TeamService));
 //Add Services to MediatR 
 builder.Services.AddMediatR(typeof(Program));
 
