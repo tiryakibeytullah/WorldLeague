@@ -7,11 +7,6 @@ namespace WorldLeagure.Core.Entities
     {
         public string Name { get; set; }
 
-        [ForeignKey("GroupId")]
-        public Guid GroupId { get; set; }
-
-        public virtual Group Group { get; set; }
-
         [ForeignKey("CountryId")]
         public Guid CountryId { get; set; }
 
