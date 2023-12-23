@@ -12,6 +12,7 @@ using WorldLeague.API.Features.Queries.DrawReports.GetByIdDrawReport;
 using WorldLeague.API.Features.Queries.Groups.GetByIdGroup;
 using WorldLeague.API.Features.Queries.Teams.GetByIdTeam;
 using WorldLeagure.Core.Entities;
+using WorldLeagure.Core.ViewModels;
 
 namespace WorldLeague.API
 {
@@ -28,6 +29,7 @@ namespace WorldLeague.API
 
             #region Team Mapping
             CreateMap<CreateTeamCommandRequest, Team>().ReverseMap();
+            CreateMap<CreateTeamCommandRequest, Team>().ReverseMap();
             CreateMap<UpdateTeamCommandRequest, Team>().ReverseMap();
             CreateMap<Team, GetByIdTeamQueryResponse>().ReverseMap();
             #endregion
@@ -43,6 +45,8 @@ namespace WorldLeague.API
             CreateMap<UpdateDrawReportCommandRequest, DrawReport>().ReverseMap();
             CreateMap<DrawReport, GetByIdDrawReportQueryResponse>().ReverseMap();
             #endregion
+
+            CreateMap<DrawReportResponse, DrawReportViewModel>().ReverseMap();
         }
     }
 }

@@ -1,9 +1,11 @@
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Core;
 using WorldLeague.API.Extensions;
+using WorldLeague.API.Validators.DrawReports;
 using WorldLeagure.Core.Repositories;
 using WorldLeagure.Core.Services;
 using WorldLeagure.Core.UnitOfWorks;
@@ -22,7 +24,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Add Services Custom ValidationFilter
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+    .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateDrawReportValidator>())
     .ConfigureApiBehaviorOptions(configuration => configuration.SuppressModelStateInvalidFilter = true);
 
 builder.Services.AddHttpLogging(logging =>
@@ -47,6 +51,11 @@ builder.Services.AddScoped(typeof(IGroupService), typeof(GroupService));
 builder.Services.AddScoped(typeof(ITeamService), typeof(TeamService));
 //Add Services to MediatR 
 builder.Services.AddMediatR(typeof(Program));
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 
 //Add Services to DbContext
 builder.Services.AddDbContext<WorldLeagueDbContext>(options =>

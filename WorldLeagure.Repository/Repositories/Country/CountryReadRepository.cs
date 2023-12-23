@@ -16,5 +16,10 @@ namespace WorldLeagure.Repository.Repositories.Country
         {
             return await _worldLeagueDbContext.Countries.AnyAsync(c => c.Id == id && c.IsDeleted == false);
         }
+
+        public async Task<List<Core.Entities.Country>> GetWithNavigationPropertiesAsync()
+        {
+            return await _worldLeagueDbContext.Countries.Include(c => c.Teams).ToListAsync();
+        }
     }
 }
