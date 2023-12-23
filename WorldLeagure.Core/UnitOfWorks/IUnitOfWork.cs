@@ -1,4 +1,5 @@
-﻿using WorldLeagure.Core.Repositories.DrawReport;
+﻿using WorldLeagure.Core.Repositories.Country;
+using WorldLeagure.Core.Repositories.DrawReport;
 using WorldLeagure.Core.Repositories.Group;
 using WorldLeagure.Core.Repositories.Team;
 
@@ -12,6 +13,8 @@ namespace WorldLeagure.Core.UnitOfWorks
         IGroupWriteRepository GroupWriteRepository { get; }
         ITeamReadRepository TeamReadRepository { get; }
         ITeamWriteRepository TeamWriteRepository { get; }
+        ICountryReadRepository CountryReadRepository { get; }
+        ICountryWriteRepository CountryWriteRepository { get; }
         Task CommitAsync();
         void Commit();
     }
