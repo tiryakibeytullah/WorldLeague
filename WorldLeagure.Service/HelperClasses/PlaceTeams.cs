@@ -1,7 +1,7 @@
 ﻿using WorldLeagure.Core.Entities;
 using WorldLeagure.Core.ViewModels;
 
-namespace WorldLeagure.Service.Services.HelperClasses
+namespace WorldLeagure.Service.HelperClasses
 {
     public static class PlaceTeams
     {

@@ -4,8 +4,8 @@ using WorldLeagure.Core.Repositories;
 using WorldLeagure.Core.Services;
 using WorldLeagure.Core.UnitOfWorks;
 using WorldLeagure.Core.ViewModels;
+using WorldLeagure.Service.HelperClasses;
 using WorldLeagure.Service.Services.Common;
-using WorldLeagure.Service.Services.HelperClasses;
 
 namespace WorldLeagure.Service.Services
 {
